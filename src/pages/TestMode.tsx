@@ -113,13 +113,14 @@ const TestMode: React.FC = () => {
                             max={vocabulary.length}
                             value={rangeStart}
                             onChange={setRangeStart}
+                            label="開始番号"
                         />
-                        <span>〜</span>
                         <SmartRangePicker
                             min={1}
                             max={vocabulary.length}
                             value={rangeEnd}
                             onChange={setRangeEnd}
+                            label="終了番号"
                         />
                     </div>
                     <button className="start-btn" onClick={handleStart}>
