@@ -1,15 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { useVocabulary } from '../context/VocabularyContext';
-import { CheckCircle, XCircle, RefreshCw, Home } from 'lucide-react';
+import { CheckCircle, XCircle, RefreshCw, Home, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { VocabularyItem } from '../types';
 
+interface TestResultDetail {
+    question: VocabularyItem;
+    selectedChoiceId: number;
+    isCorrect: boolean;
+}
+
 const TestMode: React.FC = () => {
-    const { vocabulary } = useVocabulary();
+    const { vocabulary, toggleWeakWord, isWeak } = useVocabulary();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
     const [showResult, setShowResult] = useState(false);
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+
+    // Detailed results tracking
+    const [results, setResults] = useState<TestResultDetail[]>([]);
 
     // Range selection state
     const [isStarted, setIsStarted] = useState(false);
@@ -31,6 +40,7 @@ const TestMode: React.FC = () => {
         setFilteredVocabulary(filtered);
         setCurrentQuestionIndex(0);
         setScore(0);
+        setResults([]);
         setShowResult(false);
         setIsStarted(true);
     };
@@ -46,9 +56,6 @@ const TestMode: React.FC = () => {
     // Generate choices
     const choices = useMemo(() => {
         if (!currentQuestion) return [];
-        // Use filtered vocabulary for distractors to keep context, 
-        // but if filtered is small, we could use global vocabulary. 
-        // For now, let's use filtered to strictly test the range.
         const otherWords = filteredVocabulary.filter(w => w.id !== currentQuestion.id);
         const randomDistractors = otherWords.sort(() => 0.5 - Math.random()).slice(0, 3);
         return [...randomDistractors, currentQuestion].sort(() => 0.5 - Math.random());
@@ -64,6 +71,13 @@ const TestMode: React.FC = () => {
             setScore(prev => prev + 1);
         }
 
+        // Record result
+        setResults(prev => [...prev, {
+            question: currentQuestion,
+            selectedChoiceId: choiceId,
+            isCorrect: correct
+        }]);
+
         setTimeout(() => {
             if (currentQuestionIndex < testQuestions.length - 1) {
                 setCurrentQuestionIndex(prev => prev + 1);
@@ -78,6 +92,7 @@ const TestMode: React.FC = () => {
         setIsStarted(false);
         setSelectedAnswer(null);
         setScore(0);
+        setResults([]);
         setCurrentQuestionIndex(0);
         setShowResult(false);
     };
@@ -130,6 +145,36 @@ const TestMode: React.FC = () => {
                             score >= testQuestions.length * 0.8 ? 'よくできました！' :
                                 'もう少し頑張りましょう！'}
                     </p>
+
+                    <div className="result-list">
+                        <h3>回答一覧</h3>
+                        {results.map((result, index) => {
+                            const isWeakWord = isWeak(result.question.id);
+                            return (
+                                <div key={index} className={`result-item ${result.isCorrect ? 'correct' : 'wrong'}`}>
+                                    <div className="result-item-header">
+                                        <span className="result-number">Q{index + 1}</span>
+                                        <span className="result-status">
+                                            {result.isCorrect ? <CheckCircle size={20} /> : <XCircle size={20} />}
+                                        </span>
+                                    </div>
+                                    <div className="result-word-info">
+                                        <h4>{result.question.word}</h4>
+                                        <p className="result-reading">{result.question.reading}</p>
+                                        <p className="result-meaning">{result.question.meaning}</p>
+                                    </div>
+                                    <button
+                                        className={`result-weak-btn ${isWeakWord ? 'active' : ''}`}
+                                        onClick={() => toggleWeakWord(result.question.id)}
+                                        title={isWeakWord ? "苦手から外す" : "苦手に追加"}
+                                    >
+                                        <Star size={20} fill={isWeakWord ? "currentColor" : "none"} />
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+
                     <div className="result-actions">
                         <button className="restart-btn" onClick={restartTest}>
                             <RefreshCw /> 設定に戻る

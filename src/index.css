@@ -221,9 +221,10 @@ body {
 /* Flashcard */
 .flashcard {
   width: 100%;
-  max-width: 400px;
-  height: 300px;
-  /* Fixed height for consistency */
+  max-width: 500px;
+  /* Increased width */
+  height: 500px;
+  /* Increased height */
   perspective: 1000px;
   cursor: pointer;
 }
@@ -297,31 +298,16 @@ body {
 .meaning-display {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  /* Scrollable content */
-  padding: 2rem;
-  /* Add padding inside scrollable area */
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Custom Scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) transparent;
+  justify-content: center;
+  /* Center content vertically */
+  gap: 1rem;
+  /* Add gap between sections */
 }
 
-.meaning-display::-webkit-scrollbar {
-  width: 6px;
-}
-
-.meaning-display::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.meaning-display::-webkit-scrollbar-thumb {
-  background-color: var(--color-primary);
-  border-radius: 20px;
-}
+/* Removed scrollbar styles as we want to fit content */
 
 .meaning-display h4 {
   margin: 0 0 0.5rem 0;
@@ -830,4 +816,118 @@ body {
   font-size: 1rem;
   margin: 0;
   color: #5d4037;
+}
+
+.result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.result-list h3 {
+  text-align: left;
+  margin: 0 0 1rem 0;
+  color: var(--color-text);
+  font-size: 1.2rem;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid transparent;
+}
+
+.result-item.correct {
+  border-left-color: #4caf50;
+  background-color: #f1f8e9;
+}
+
+.result-item.wrong {
+  border-left-color: #ef5350;
+  background-color: #ffebee;
+}
+
+.result-item-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 40px;
+}
+
+.result-number {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  font-weight: bold;
+}
+
+.result-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-item.correct .result-status {
+  color: #2e7d32;
+}
+
+.result-item.wrong .result-status {
+  color: #c62828;
+}
+
+.result-word-info {
+  flex: 1;
+  text-align: left;
+}
+
+.result-word-info h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
+
+.result-reading {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.result-meaning {
+  margin: 0.2rem 0 0 0;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.result-weak-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  /* Default color */
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-weak-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
+.result-weak-btn.active {
+  color: var(--color-secondary);
+  /* Active color (pink) */
 }
