@@ -821,6 +821,91 @@ body {
   color: #5d4037;
 }
 
+/* Responsive Design */
+@media (max-width: 600px) {
+  .app-layout {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .app-content {
+    padding: 1rem;
+  }
+
+  /* Home Page */
+  .hero-section {
+    padding: 2rem 1rem;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .menu-grid {
+    gap: 1rem;
+  }
+
+  .menu-card {
+    padding: 1.2rem;
+    gap: 1rem;
+  }
+
+  .card-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Flashcard */
+  .flashcard {
+    height: 60vh;
+    /* Dynamic height for mobile */
+    min-height: 400px;
+    max-height: 600px;
+  }
+
+  .flashcard-front,
+  .flashcard-back {
+    padding: 1.5rem;
+  }
+
+  .word-text {
+    font-size: 2.8rem;
+    /* Smaller font on mobile */
+  }
+
+  .meaning-display {
+    gap: 1rem;
+  }
+
+  .meaning-display p {
+    font-size: 1.1rem;
+  }
+
+  /* Controls */
+  .controls {
+    gap: 0.5rem;
+  }
+
+  .control-btn,
+  .weak-btn {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Test Mode */
+  .question-word {
+    font-size: 2rem;
+  }
+
+  .choice-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
 .result-list {
   display: flex;
   flex-direction: column;
