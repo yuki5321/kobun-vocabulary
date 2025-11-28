@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useVocabulary } from '../context/VocabularyContext';
 import { ChevronLeft, ChevronRight, RotateCw, Star } from 'lucide-react';
-import DrumRollPicker from '../components/DrumRollPicker';
+import SmartRangePicker from '../components/SmartRangePicker';
 
 const MemorizeMode: React.FC = () => {
     const { vocabulary, toggleWeakWord, isWeak } = useVocabulary();
@@ -39,14 +39,14 @@ const MemorizeMode: React.FC = () => {
                 <div className="range-selector">
                     <p>学習する範囲を指定してください（全{vocabulary.length}語）</p>
                     <div className="range-inputs">
-                        <DrumRollPicker
+                        <SmartRangePicker
                             min={1}
                             max={vocabulary.length}
                             value={rangeStart}
                             onChange={setRangeStart}
                         />
                         <span>〜</span>
-                        <DrumRollPicker
+                        <SmartRangePicker
                             min={1}
                             max={vocabulary.length}
                             value={rangeEnd}

@@ -3,7 +3,7 @@ import { useVocabulary } from '../context/VocabularyContext';
 import { CheckCircle, XCircle, RefreshCw, Home, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { VocabularyItem } from '../types';
-import DrumRollPicker from '../components/DrumRollPicker';
+import SmartRangePicker from '../components/SmartRangePicker';
 
 interface TestResultDetail {
     question: VocabularyItem;
@@ -108,14 +108,14 @@ const TestMode: React.FC = () => {
                     <p>出題範囲を指定してください（全{vocabulary.length}語）</p>
                     <p className="note">※最低4語以上選択してください</p>
                     <div className="range-inputs">
-                        <DrumRollPicker
+                        <SmartRangePicker
                             min={1}
                             max={vocabulary.length}
                             value={rangeStart}
                             onChange={setRangeStart}
                         />
                         <span>〜</span>
-                        <DrumRollPicker
+                        <SmartRangePicker
                             min={1}
                             max={vocabulary.length}
                             value={rangeEnd}
