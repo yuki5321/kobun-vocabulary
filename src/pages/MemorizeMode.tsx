@@ -99,7 +99,6 @@ const MemorizeMode: React.FC = () => {
                         <div className="word-display">
                             <span className="word-id">No.{currentWord.id}</span>
                             <h3 className="word-text">{currentWord.word}</h3>
-                            <p className="word-reading">{currentWord.reading}</p>
                         </div>
                         <div className="card-hint">
                             <RotateCw size={20} /> タップして意味を表示

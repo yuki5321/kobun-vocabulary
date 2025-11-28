@@ -266,17 +266,20 @@ body {
   transform: rotateY(180deg);
   background-color: #fafafa;
   align-items: stretch;
-  /* Allow children to fill width */
-  padding: 0;
-  /* Remove padding from container to let scrollbar sit at edge */
+  padding: 3rem;
+  /* Increased padding */
   overflow: hidden;
-  /* Hide overflow on container */
+  display: flex;
+  flex-direction: column;
 }
 
 .word-text {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
+  /* Larger font size */
   margin: 0;
   color: var(--color-text);
+  font-weight: bold;
+  line-height: 1.2;
 }
 
 .word-reading {
@@ -303,8 +306,8 @@ body {
   align-items: center;
   justify-content: center;
   /* Center content vertically */
-  gap: 1rem;
-  /* Add gap between sections */
+  gap: 1.5rem;
+  /* Increased gap */
 }
 
 /* Removed scrollbar styles as we want to fit content */
